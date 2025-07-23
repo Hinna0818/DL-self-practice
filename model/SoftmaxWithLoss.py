@@ -1,21 +1,28 @@
 import numpy as np
-
+from functions import softmax, cross_entropy_error
 class SoftmaxWithLoss:
     def __init__(self):
-        self.params = []
-        self.grads = []
-        self.x = None
-        self.t = None
+        self.params, self.grads = [], []
+        self.y = None  # softmax的输出
+        self.t = None  # 监督标签
 
     def forward(self, x, t):
-        self.x = x
         self.t = t
-        exp_x = np.exp(x - np.max(x, axis=1, keepdims=True))  # for numerical stability
-        softmax_output = exp_x / np.sum(exp_x, axis=1, keepdims=True)
-        loss = -np.sum(t * np.log(softmax_output + 1e-7)) / x.shape[0]  # add small value to avoid log(0)
+        self.y = softmax(x)
+
+        # 在监督标签为one-hot向量的情况下，转换为正确解标签的索引
+        if self.t.size == self.y.size:
+            self.t = self.t.argmax(axis=1)
+
+        loss = cross_entropy_error(self.y, self.t)
         return loss
 
-    def backward(self):
-        batch_size = self.x.shape[0]
-        dx = (self.x - self.t) / batch_size
+    def backward(self, dout=1):
+        batch_size = self.t.shape[0]
+
+        dx = self.y.copy()
+        dx[np.arange(batch_size), self.t] -= 1
+        dx *= dout
+        dx = dx / batch_size
+
         return dx
