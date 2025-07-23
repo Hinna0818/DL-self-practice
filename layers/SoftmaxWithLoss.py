@@ -1,5 +1,7 @@
 import numpy as np
-from functions import softmax, cross_entropy_error
+import sys
+sys.path.append("..")
+from .functions import softmax, cross_entropy_error
 class SoftmaxWithLoss:
     def __init__(self):
         self.params, self.grads = [], []
