@@ -10,6 +10,8 @@ class RNN:
         Wx, Wh, b = self.params
         t = np.dot(h_prev, Wh) + np.dot(x, Wx) + b
         h_next = np.tanh(t)
+
+        self.cache = (x, h_prev, h_next)
         return h_next
     
     def backward(self, dh_next):

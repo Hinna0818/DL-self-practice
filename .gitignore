@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Virtual Environment
+.env/
+.venv/
+env/
+venv/
+ENV/
+
+# PyTorch Checkpoints
+*.pt
+*.pth
+checkpoint.pt
+checkpoints/
+runs/
+lightning_logs/
+output/
+models/
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Data (Optional)
+*.csv
+*.tsv
+*.h5
+*.hdf5
+*.npz
+*.npy
+*.pkl
+*.log
+
+data/
+dataset/
